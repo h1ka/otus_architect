@@ -11,7 +11,7 @@ services:
     command: java -jar ./docker-demo.jar
     network_mode: host
     ports:
-     - "8080:8080"
+     - 8000:8080
     volumes:
       - "~/.bash_history:/.bash_history"
       - "/tmp:/tmp:delegated"
