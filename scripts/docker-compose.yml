@@ -1,16 +1,16 @@
 version: '3.3'
 
 services:
-  web:
-    image: otus_h1ka:0.1
-    container_name: health
+  app:
+    image: h1ka/otus:0.1
+    container_name: health-status
     build:
       context: services/app
       dockerfile: Dockerfile.development
     command: java -jar ./docker-demo.jar
     network_mode: bridge
     ports:
-      - "8000:8080"
+      - "80:8000"
     volumes:
       - "~/.bash_history:/.bash_history"
       - "/tmp:/tmp:delegated"
