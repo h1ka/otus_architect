@@ -1,0 +1,8 @@
+FROM openjdk
+LABEL maintainer="OTUS Nika A"
+ENV PROJECT_ROOT /usr/src/app
+WORKDIR $PROJECT_ROOT
+EXPOSE 8000
+COPY docker-demo.jar docker-demo.jar
+CMD java -jar ./docker-demo.jar
+
