@@ -1,6 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: health-config
+  name: config
 data:
-  
+  server_port: "8000"
+  datasource_driver: "org.postgresql.Driver"
+  sql_dialect: "org.hibernate.dialect.PostgreSQLDialects"
+  show_sql: "true"
+  hibernate_ddl_auto: "none"
+
+

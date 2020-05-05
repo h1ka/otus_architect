@@ -20,9 +20,10 @@ spec:
           - "-c"
           - |
             psql $DATABASE_URI <<'EOF'
-              CREATE TABLE users (id bigint primary key, username varchar(50) UNIQUE NOT NULL, first_name varchar(30) NOT NULL, last_name varchar(30) NOT NULL, email varchar(30) UNIQUE NOT NULL, phone varchar(10));
-              CREATE INDEX idx_users_username ON users(username); 
-              INSERT INTO users (id, username, first_name, last_name, email, phone) VALUES (1, 'h1ka', 'Veronika', 'Anfilatova', 'h1ka@outlook.com', '89991232244');	
+              CREATE TABLE users (id bigint primary key, username varchar(50) UNIQUE NOT NULL, first_name varchar(30) NOT NULL, last_name varchar(30) NOT NULL, email varchar(30) UNIQUE NOT NULL, phone varchar(20));
+              CREATE INDEX idx_users_username ON users(username);
+              CREATE SEQUENCE hibernate_sequence START 1;
+              INSERT INTO users (id, username, first_name, last_name, email, phone) VALUES (1, 'h1ka', 'Veronika', 'Anfilatova', 'h1ka@outlook.com', '89991232244');
             EOF
- 
-  backoffLimit: 0
+
+  backoffLimit: 3

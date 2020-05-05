@@ -14,14 +14,38 @@ spec:
     spec:
       containers:
       - name: health-status
-        image: h1ka/otus:0.2
+        image: h1ka/otus:0.3
         env:
           - name: DATABASE_URI
             valueFrom:
               secretKeyRef:
                 name: health-secret
                 key: DATABASE_URI
-
+          - name: SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: server_port
+          - name: DATASOURCE_DRIVER
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: datasource_driver
+          - name: HIBERNATE_DDL_AUTO
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: hibernate_ddl_auto
+          - name: SHOW_SQL
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: show_sql
+          - name: SQL_DIALECT
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: sql_dialect
         ports:
           - name: web
             containerPort: 8000
