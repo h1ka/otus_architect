@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "otus-arch-db"
+spec:
+  template:
+    metadata:
+      name: "otus-arch-db"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: postgres:latest
+        env:
+          - name: DATABASE_URI
+            value: "postgresql://myuser:passwd@postgres/otus_arch"
+        image: postgres:latest
+        command:
+          - sh
+          - "-c"
+          - |
+            psql $DATABASE_URI <<'EOF'
+              CREATE TABLE users (id bigint primary key, username varchar(50) UNIQUE NOT NULL, first_name varchar(30) NOT NULL, last_name varchar(30) NOT NULL, email varchar(30) UNIQUE NOT NULL, phone varchar(10));
+              CREATE INDEX idx_users_username ON users(username); 
+              INSERT INTO users (id, username, first_name, last_name, email, phone) VALUES (1, 'h1ka', 'Veronika', 'Anfilatova', 'h1ka@outlook.com', '89991232244');	
+            EOF
+ 
+  backoffLimit: 0

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: health-app
+  template:
+    metadata:
+      labels:
+        app: health-app
+    spec:
+      containers:
+      - name: health-status
+        image: h1ka/otus:0.2
+        env:
+          - name: DATABASE_URI
+            valueFrom:
+              secretKeyRef:
+                name: health-secret
+                key: DATABASE_URI
+
+        ports:
+          - name: web
+            containerPort: 8000
+        livenessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet: 
+            port: 8000
+            path: /health
+          initialDelaySeconds: 10
+          periodSeconds: 5
